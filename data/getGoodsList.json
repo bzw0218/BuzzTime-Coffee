@@ -1,0 +1,86 @@
+{
+  "Status": 0,
+  "Message": "success",
+  "Data": [
+    {
+      "id":"1",
+      "chineseName":"咖啡",
+      "englishName":"咖啡",
+      "picPath":"图片路径",
+      "type":"1",//下拉加载用
+      "goodsList":[
+        {
+          "id":"1221",//
+          "chineseName":"拿铁",
+          "englishName":"oangoan",
+          "price":122,
+          "target":"New",
+          "type":"0",  //0:普通；1：组合(关联套餐，暂时不考虑此种情况)
+          "skuInfo":[
+            {
+              "id":"1",
+              "chineseName":"基础组合",
+              "englishName":"基础组合",
+              "type":"0",    //0：基本属性基础属性可以不显示分类名称)；1：其他(
+              "enableMultiple":"true", //true:可以多选；false:单选
+              "list":[
+                {"id":"1","chineseName":"加冰","englishName":"Ice","addPrice":3},
+                {"id":"1","chineseName":"不加冰","englishName":"no Ice","addPrice":3},
+                {"id":"1","chineseName":"加奶","englishName":"milk","addPrice":-1}
+              ]
+            },
+            {
+              "id":"2",
+              "chineseName":"基础组合",
+              "englishName":"基础组合",
+              "type":"0",    //0：基本属性基础属性可以不显示分类名称)；1：其他(
+              "enableMultiple":"true", //true:可以多选；false:单选
+              "list":[
+                {"id":"1","chineseName":"加冰","englishName":"Ice","addPrice":3},
+                {"id":"1","chineseName":"不加冰","englishName":"no Ice","addPrice":3},
+                {"id":"1","chineseName":"加奶","englishName":"milk","addPrice":-1}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id":"1221",//
+      "chineseName":"拿铁",
+      "englishName":"oangoan",
+      "price":122,
+      "target":"New",
+      "type":"0",  //0:普通；1：组合(关联套餐，暂时不考虑此种情况)
+      "skuInfo":[
+        {
+          "id":"1",
+          "chineseName":"基础组合",
+          "englishName":"基础组合",
+          "type":"0",    //0：基本属性基础属性可以不显示分类名称)；1：其他(
+          "enableMultiple":"true", //true:可以多选；false:单选
+          "list":[
+            {"id":"1","chineseName":"加冰","englishName":"Ice","addPrice":3},
+            {"id":"1","chineseName":"不加冰","englishName":"no Ice","addPrice":3},
+            {"id":"1","chineseName":"加奶","englishName":"milk","addPrice":-1}
+          ]
+        },
+        {
+          "id":"2",
+          "chineseName":"基础组合",
+          "englishName":"基础组合",
+          "type":"0",    //0：基本属性基础属性可以不显示分类名称)；1：其他(
+          "enableMultiple":"true", //true:可以多选；false:单选
+          "list":[
+            {"id":"1","chineseName":"加冰","englishName":"Ice","addPrice":3},
+            {"id":"1","chineseName":"不加冰","englishName":"no Ice","addPrice":3},
+            {"id":"1","chineseName":"加奶","englishName":"milk","addPrice":-1}
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+]
+}

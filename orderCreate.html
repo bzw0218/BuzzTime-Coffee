@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="Bevis" name="author">
+    <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+    <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="pragma">
+    <meta content="0" http-equiv="expires">
+    <meta content="telephone=no, address=no" name="format-detection">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>商品详情</title>
+    <link rel="stylesheet" href="css/commons.css">
+    <link rel="stylesheet" href="css/shop.css">
+    <!--<script src="lib/vconsole.min.js"></script>-->
+    <script src="lib_cmd/sea.js"></script>
+    <script>
+        var APP={
+            shopId:"",
+            urls:{
+                getCoupons:"data/getConpons.json",
+                submitOrder:"data/submitOrder.json",
+                continuePay:"data/submitOrder.json",
+                IsRequiredVerification:"data/IsRequiredVerification.json",
+                CreateCode:"data/CreateCode.json",
+                CheckCode:"data/CheckCode.json",
+                orderResult:"orderResult.html"
+            }
+        }
+    </script>
+    <script>
+        (function(l){
+//                l=l||[,"-min"];
+            seajs.config({
+                base:"./",
+//                    base:"./build",
+                map: [
+                    [ ".js", (l&&l[1]||"")+".js?v=20141027"]
+                ]
+            });
+            seajs.use("js_cmd/orderCreate");
+        })(location.href.match(/de(\-\d+)bug/));
+    </script>
+</head>
+<body>
+<div class="container order">
+    <header>
+        <div class="wrap_address border">
+            <a href="addressList.html?isFromOrder=1" id="addrShow" class="address_show">
+                <h3>韩梅梅 女士    15012341234</h3>
+                <p><label class="tag">家</label>宝山区奥交割及哦啊个家东方路135</p>
+            </a>
+            <i class="icon icon_arrow"></i>
+        </div>
+    </header>
+    <section class="wrap_content">
+        <div class="wrap_content">
+            <div class="wrap_item border">
+                <ul class="sale_info">
+                    <li id="deliverTime" class="border"><span>送达时间</span><span id="deliverTimeShow">请选择时间</span><i class="icon icon_arrow"></i></li>
+                    <li id="couponUse"><span>使用优惠</span><span id="couponUseShow">选择优惠券</span><i class="icon icon_arrow"></i></li>
+                </ul>
+            </div>
+            <div class="wrap_item border">
+                <ul id="goodsList" class="good_info">
+                    <li><div>美式咖啡</div><div><span>X1</span><span>¥26</span></div></li>
+                    <li><div>美式咖啡</div><div><span>X1</span><span>¥26</span></div></li>
+                    <li><div>美式咖啡</div><div><span>X1</span><span>¥26</span></div></li>
+                </ul>
+                <ul class="fee_info">
+                    <li><span>配送费</span><span id="serverFee">¥0.00</span></li>
+                    <li><span>优惠金额</span><span id="minusFee">-¥0.00</span></li>
+                </ul>
+            </div>
+            <div class="wrap_item border">
+                <div class="remark">
+                    <p>订单备注</p>
+                    <div class="wrap_input"><input id="remark" type="text" name="remark" placeholder="备注"></div>
+                </div>
+                <div class="pay_info">
+                    <div class="pay_fee">
+                        <label>支付<span id="payMoney">¥0</span></label>
+                        <label>优惠<span id="minusMoney">¥0</span></label>
+                    </div>
+                    <div id="payBtn" class="pay_btn">
+                        微信支付
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer></footer>
+
+    <section class="wrap_dialog" id="timeSelect" ontouchmove="return false;">
+        <div class="mask"></div>
+        <div class="wrap_content">
+            <div class="wrap_times">
+                <div>
+                    <ul id="timeTabs" class="times">
+                        <li>今天(周二)</li>
+                    </ul>
+                </div>
+                <div id="timeListCon" class="time_list_con">
+                    <div class="wrap_time_list">
+                        <ul class="time_list">
+                            <li>
+                                <label>
+                                    <span>13：00-16:00</span>
+                                    <input type="radio" class="hidden" name="timeSelect" value="12334344,34343443">
+                                    <i class="icon icon_circle"></i>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <span>13：00-16:00</span>
+                                    <input type="radio" class="hidden" name="timeSelect" value="12334344,34343443">
+                                    <i class="icon icon_circle"></i>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <span>13：00-16:00</span>
+                                    <input type="radio" class="hidden" name="timeSelect" value="12334344,34343443">
+                                    <i class="icon icon_circle"></i>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="wrap_dialog" id="couponSelect" ontouchmove="return false;">
+        <div class="mask"></div>
+        <div class="wrap_content">
+            <ul id="couponList" class="coupon_list"></ul>
+        </div>
+    </section>
+</div>
+</body>
+</html>

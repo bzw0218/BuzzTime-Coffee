@@ -1,0 +1,38 @@
+{
+  "Status": 0,
+  "Message": "success",
+  "Data": [
+    {
+      "id":"1221",
+      "name":"BuzzTime Coffee(吴江路店)",
+      "address":"吴江路四季坊街上(食之秘旁)",
+      "distence":"<1.2km",
+      "imgUrl":"images/shop.png",
+      "serverFee":"1"
+    },
+    {
+      "id":"1221",
+      "name":"BuzzTime Coffee(吴江路店)",
+      "address":"吴江路四季坊街上(食之秘旁)",
+      "distence":"<1.2km",
+      "imgUrl":"images/shop.png",
+      "serverFee":"1"
+    },
+    {
+      "id":"1221",
+      "name":"BuzzTime Coffee(吴江路店)",
+      "address":"吴江路四季坊街上(食之秘旁)",
+      "distence":"<1.2km",
+      "imgUrl":"images/shop.png",
+      "serverFee":"1"
+    },
+    {
+      "id":"1221",
+      "name":"BuzzTime Coffee(吴江路店)",
+      "address":"吴江路四季坊街上(食之秘旁)",
+      "distence":"<1.2km",
+      "imgUrl":"images/shop.png",
+      "serverFee":"1"
+    }
+  ]
+}

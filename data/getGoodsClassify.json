@@ -1,0 +1,41 @@
+{
+  "Status": 0,
+  "Message": "success",
+  "Data": [
+    {
+      "id":"1",
+      "chineseName":"咖啡",
+      "englishName":"咖啡",
+      "picPath":"图片路径",
+      "type":"1"
+    },
+    {
+      "id":"2",
+      "chineseName":"热饮",
+      "englishName":"咖啡",
+      "picPath":"图片路径",
+      "type":"1"
+    },
+    {
+      "id":"3",
+      "chineseName":"冷饮",
+      "englishName":"咖啡",
+      "picPath":"图片路径",
+      "type":"1"
+    },
+    {
+      "id":"4",
+      "chineseName":"小吃",
+      "englishName":"咖啡",
+      "picPath":"图片路径",
+      "type":"1"
+    },
+    {
+      "id":"5",
+      "chineseName":"其他",
+      "englishName":"咖啡",
+      "picPath":"图片路径",
+      "type":"1"
+    }
+  ]
+}

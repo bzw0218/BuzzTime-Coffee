@@ -1,0 +1,34 @@
+{
+  "Status": 0,
+  "Message": "success",
+  "Data": [
+    {
+      "id":"0",
+      "couponType":"1",
+      "preferentialType":"1",
+      "preferential":10,
+      "couponName":"满额优惠"
+    },
+    {
+      "id":"1",
+      "couponType":"1",
+      "preferentialType":"1",
+      "preferential":10,
+      "couponName":"满额优惠"
+    },
+    {
+      "id":"2",
+      "couponType":"1",
+      "preferentialType":"1",
+      "preferential":10,
+      "couponName":"满额优惠"
+    },
+    {
+      "id":"3",
+      "couponType":"1",
+      "preferentialType":"1",
+      "preferential":10,
+      "couponName":"满额优惠"
+    }
+  ]
+}
