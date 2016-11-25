@@ -58,7 +58,10 @@ define(function(require,exports,module){
             couponSelect:$("#couponSelect"),
             couponList:$("#couponList"),
             timeTabs:$("#timeTabs"),
-            timeListCon:$("#timeListCon")
+            timeListCon:$("#timeListCon"),
+            orderMoney:$("#orderMoney"),
+            orderMinus:$("#orderMinus"),
+            orderPay:$("#orderPay")
         };
         eles=(function(){
             function Ele(){
@@ -140,6 +143,10 @@ define(function(require,exports,module){
                             $eles.minusFee.html("-¥"+(minusMoney-0).toFixed(2));
                             $eles.payMoney.html("¥"+(payMoney-minusMoney+serverFee).toFixed(2));
                             $eles.minusMoney.html("¥"+minusMoney.toFixed(2))
+
+                            $eles.orderMinus.html((minusMoney-0).toFixed(2));
+                            $eles.orderPay.html((payMoney-minusMoney+serverFee).toFixed(2));
+
                         }
                     },
                     currTime:{
@@ -178,6 +185,10 @@ define(function(require,exports,module){
                     payMoney=parseFloat(info.shopCart.total-0);
 
                     $eles.payMoney.html((payMoney-0+serverFee-0).toFixed(2));
+
+                    $eles.orderMoney.html((payMoney-0+serverFee-0).toFixed(2));
+
+                    $eles.orderPay.html((payMoney-0+serverFee-0).toFixed(2));
 
                 }
 
@@ -485,12 +496,21 @@ define(function(require,exports,module){
                     postObj.commodity=[];
                     postObj.couponId=(currCoupon&&currCoupon.id)||"";
 
+                    postObj.outOfTime=0;
+
                     postObj.remark=$eles.remark.val();
 
                     if(!deliveryMinTime||!deliveryMaxTime){
                         tip("请选择时间", { classes: "otip", t: 2000 });
                         $eles.payBtn.prop("isLoading",false);
                         return null
+                    }
+
+                    //滞留超时
+                    while (deliveryMinTime<Date.now()){
+                        deliveryMinTime+=30*60*1000;
+                        deliveryMaxTime+=30*60*1000;
+                        postObj.outOfTime=1;
                     }
 
                     postObj.deliveryMinTime=deliveryMinTime;

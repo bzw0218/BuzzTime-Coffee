@@ -44,7 +44,10 @@ define(function(require,exports,module){
             shopCartNum:$("#shopCartNum"),
             headPic:$("#headPic"),
             goodName1:$("#goodName1"),
-            goodName2:$("#goodName2")
+            goodName2:$("#goodName2"),
+            shopCart:$("#shopCart"),
+            shopCartCon:$("#shopCartCon"),
+            shopCartList:$("#shopCartList")
         };
         eles=function(){
             function Ele(){
@@ -128,24 +131,26 @@ define(function(require,exports,module){
                             currGoods.num=1;
                             currGoods.skuList=[];
                             currGoods.addPrice=0;
-                            currGoods.total=currGoods.price;
+                            currGoods.total=(currGoods.price-0);
 
                             $eles.headPic.css("background-image","url("+currGoods.picPath+")")
-                            $eles.shopCartNum.html(shopCart.commodity.length);
+                            //$eles.shopCartNum.html();
                             $eles.goodTitle.html(currGoods.chineseName);
                             $eles.goodName1.html(currGoods.chineseName);
                             $eles.goodName2.html(currGoods.englishName);
                             $eles.goodPrice.html(currGoods.price);
                             $eles.goodNum.val(currGoods.num);
-                            $eles.currNum.html(currGoods.num);
-                            $eles.currPrice.html(currGoods.price);
+                            $eles.currNum.html(shopCart.num+currGoods.num);
+                            $eles.shopCartNum.html(shopCart.num+currGoods.num);
+                            $eles.currPrice.html((shopCart.total-0+currGoods.price-0).toFixed(2));
+                            $eles.goodPrice.html(currGoods.price);
                             var skuInfo= currGoods.skuInfo,
                                 tpl = '<dt><span>{chineseName}</span></dt>\
                                         <dd class="sku_line" data-index="{index}">\
                                         </dd>',
 
                                 tplInner='<label class="sku_item">\
-                                                <input type="{selectType}" name="{index1}" data-index="{index}" class="hidden" value="{addPrice}">\
+                                                <input type="{selectType}" name="{index1}" data-str="{chineseName}" data-index="{index}" class="hidden" value="{addPrice}">\
                                                 <div class="item">\
                                                     <span>{chineseName}</span>\
                                                     <span>{englishName}</span>\
@@ -187,11 +192,15 @@ define(function(require,exports,module){
 
                             self.skuPage.show();
 
+                            $eles.goOn.show();
+
                             historyEvent.push({
                                 title:"商品详情",
                                 url:"#goodsDetail"
                             },function(){
                                 self.skuPage.hide();
+                                $eles.goOn.hide();
+                                self.shopCartFresh();
                             })
                         }
                     },
@@ -200,11 +209,14 @@ define(function(require,exports,module){
                             return currGoods.num;
                         },
                         set:function(v){
-                            currGoods.num=v;
-                            currGoods.total=(currGoods.price+currGoods.addPrice)*currGoods.num;
+                            v=v-0;
+                            currGoods.num=v-0;
+                            currGoods.total=((currGoods.price+currGoods.addPrice)*currGoods.num).toFixed(2)-0;
                             $eles.goodNum.val(v);
-                            $eles.currNum.html(v);
-                            $eles.currPrice.html((currGoods.total-0).toFixed(2));
+                            $eles.currNum.html((shopCart.num-0)+(v-0));
+                            $eles.shopCartNum.html((shopCart.num-0)+(v-0));
+                            $eles.currPrice.html((shopCart.total-0+(currGoods.total-0)).toFixed(2));
+                            $eles.goodPrice.html((currGoods.price+currGoods.addPrice-0).toFixed(2));
                             /*todo  skuprice*/
                         }
                     }
@@ -214,24 +226,34 @@ define(function(require,exports,module){
                     var inputs=$eles.skuList.find('input'),
                         sku=currGoods.skuInfo,
                         currSku=[],
-                        totalAddPrice=0;
+                        totalAddPrice= 0,
+                        otherStr=[];
 
                     inputs.each(function(){
                         var self=$(this),
                             name=self.attr("name"),
+                            str=self.attr("data-str"),
                             index=self.attr("data-index"),
+
                             addPrice=parseFloat(self.val());
 
                         if(self.prop("checked")){
                             totalAddPrice+=addPrice;
                             currSku.push(sku[name]["list"][index]);
+                            otherStr.push(str);
                         }
                     })
                     currGoods.addPrice=totalAddPrice;
                     currGoods.skuList=currSku;
 
-                    currGoods.total=((currGoods.price+currGoods.addPrice)*currGoods.num).toFixed(2);
-                    $eles.currPrice.html(currGoods.total);
+                    if(otherStr.length>0){
+                        currGoods.otherStr=["(",otherStr.join(","),")"].join("");
+                    }
+
+                    currGoods.total=((currGoods.price-0+(currGoods.addPrice-0))*currGoods.num-0).toFixed(2);
+                    $eles.currPrice.html((shopCart.total-0+(currGoods.total-0)).toFixed(2));
+                    $eles.goodPrice.html((currGoods.price-0+currGoods.addPrice-0).toFixed(2));
+
 
                 }
 
@@ -261,25 +283,105 @@ define(function(require,exports,module){
 
                 this.addShopCart=function(){
                     var goodItem={};
-                    goodItem=currGoods;
-                    shopCart.num+=currGoods.num;
-                    shopCart.total+=currGoods.total;
-                    shopCart.commodity.push(currGoods);
+                    goodItem= $.extend({},currGoods);
+                    if(!goodItem.num){
+                        return "";
+                    }
+                    shopCart.num+=goodItem.num;
+                    shopCart.total+=(goodItem.total-0);
+                    shopCart.commodity.push(goodItem);
+
+                    $eles.shopCartNum.html(shopCart.num);
+                    $eles.currNum.html(shopCart.num);
+                    $eles.currPrice.html(shopCart.total);
+
+                    //todo
+                    self.shopCartFresh();
+                }
+
+                this.shopCartFresh=function(){
+                    var tpl='<li>\
+                            <div class="wrap_good border" data-index="{index}">\
+                            <div class="wrap_name">{chineseName}</div>\
+                            <div class="wrap_num">\
+                            ¥<span class="price">{total}</span>\
+                            <i class="icon icon_minus"></i>\
+                            <input type="text" name="number" value="{num}" readonly="">\
+                            <i class="icon icon_add"></i>\
+                            </div>\
+                            </div>\
+                            <div class="wrap_tips border">{otherStr}</div>\
+                        </li>',
+                        html="";
+
+                    html=iTemplate.makeList(tpl,shopCart.commodity,function(key,v){
+                        v.otherStr=v.otherStr?v.otherStr:"";
+                        v.index=key;
+                        return v;
+                    });
+
+                    $eles.shopCartList.html(html);
+                    shopCart.num=0;
+                    shopCart.total=0;
+
+                    [].forEach.call(shopCart.commodity,function(good,index){
+                        shopCart.num+=(good.num-0);
+                        shopCart.total+=(good.total-0);
+                    })
+
+
+                    $eles.shopCartNum.html(shopCart.num);
+                    $eles.currNum.html(shopCart.num);
+                    $eles.currPrice.html((shopCart.total-0).toFixed(2));
+
+                    self.shopCartScroll.refresh();
+
+                    if(shopCart.commodity.length==0){
+                        if($eles.shopCartCon.hasClass("on")){
+                            history.go(-1);
+                        }
+                    }
+
+                }
+
+                this.shopCartScroll=new iScroll($eles.shopCartCon[0],{vScrollbar:false})
+
+                this.changeCartNum=function(index,num){console.log(index)
+                    var goodItem=shopCart.commodity[index];
+
+                    if(num==0){
+                        shopCart.commodity.splice(index,1);
+                    }else{
+                        goodItem.num=num;
+                        goodItem.total=((goodItem.price+goodItem.addPrice-0)*goodItem.num).toFixed(2);
+                    }
+
+                    self.shopCartFresh();
                 }
 
                 this.toOrderPage=function (){
                     var postObj={};
+                    /*if(shopCart.commodity.length==0){
+                        tip("请先选择商品",{ classes: "otip", t: 2000 })
+                    }*/
 
                     postObj.resId=APP.shopId;
                     postObj.deliveryType=APP.deliveryType;
                     postObj.serverFee=APP.serverFee;
                     postObj.shopCart=shopCart;
 
+                    sessionStorage.setItem("res_info","");
                     sessionStorage.setItem("res_info",JSON.stringify(postObj));
                     //window.location.href=[APP.urls.toOrderPage,"?","info=",JSON.stringify(postObj)].join("");
                     window.location.href=APP.urls.toOrderPage;
 
 
+                }
+
+                this.shopCartPage=new slidePage($eles.shopCartCon);
+
+                this.getShopCartLength=function(){
+                    return shopCart.commodity.length;
                 }
 
 
@@ -351,16 +453,67 @@ define(function(require,exports,module){
         $eles.goOn.on("click",function(){
             eles.addShopCart();
             history.go(-1);
+            $eles.goodNum.val(0);
         })
 
         $eles.toBuy.on("click",function(){
 
+
             if($eles.goodNum.val()-0){
                 eles.addShopCart();
             }
-            history.go(-1);
+
+            if(eles.getShopCartLength()==0){
+                tip("请先选择商品",{ classes: "otip", t: 2000 })
+                return false
+            }
+
+            //history.go(-1);
             //alert($eles.goodNum.val());
-            eles.toOrderPage();
+            setTimeout(function(){
+                eles.toOrderPage();
+            },100);
+        })
+
+        $eles.shopCart.on("click",function(){
+            if(eles.getShopCartLength()==0){
+                //tip("请先选择商品",{ classes: "otip", t: 2000 })
+                return false
+            }
+
+            if($eles.shopCartCon.hasClass("on")){
+                history.go(-1);
+            }
+
+            eles.shopCartPage.show();
+            historyEvent.push({
+                title:"商品详情",
+                url:"#goodsDetail"
+            },function(){
+                eles.shopCartPage.hide();
+                //$eles.goOn.hide();
+            })
+        })
+
+        $eles.shopCartList.on("click",".icon",function(){
+            var self=$(this),
+                item=self.closest(".wrap_good"),
+                index=item.attr("data-index"),
+                input=item.find('input'),
+                num=input.val()-0;
+            if(self.hasClass("icon_minus")){
+                if(num<1){
+                    return ""
+                }
+                num--;
+                input.val(num);
+                eles.changeCartNum(index,num);
+
+            }else if(self.hasClass("icon_add")){
+                num++;
+                input.val(num);
+                eles.changeCartNum(index,num);
+            }
         })
     }
 })
