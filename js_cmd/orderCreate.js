@@ -180,7 +180,7 @@ define(function(require,exports,module){
                     deliveryType=info.deliveryType;
                     self.goodsList=info.shopCart.commodity;
 
-                    $eles.serverFee.html(serverFee);
+                    $eles.serverFee.html("¥"+serverFee);
 
                     payMoney=parseFloat(info.shopCart.total-0);
 
@@ -508,9 +508,9 @@ define(function(require,exports,module){
 
                     //滞留超时
                     while (deliveryMinTime<Date.now()){
-                        deliveryMinTime+=30*60*1000;
-                        deliveryMaxTime+=30*60*1000;
-                        postObj.outOfTime=1;
+                        alert("所选配送时间小于当前时间，请重新选择");
+                        $eles.payBtn.prop("isLoading",false);
+                        return null;
                     }
 
                     postObj.deliveryMinTime=deliveryMinTime;
