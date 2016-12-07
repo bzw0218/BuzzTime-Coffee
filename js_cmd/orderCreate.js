@@ -144,8 +144,8 @@ define(function(require,exports,module){
                             $eles.payMoney.html("¥"+(payMoney-minusMoney+serverFee).toFixed(2));
                             $eles.minusMoney.html("¥"+minusMoney.toFixed(2))
 
-                            $eles.orderMinus.html((minusMoney-0).toFixed(2));
-                            $eles.orderPay.html((payMoney-minusMoney+serverFee).toFixed(2));
+                            $eles.orderMinus.html("¥"+(minusMoney-0).toFixed(2));
+                            $eles.orderPay.html("¥"+(payMoney-minusMoney+serverFee).toFixed(2));
 
                         }
                     },
@@ -184,11 +184,11 @@ define(function(require,exports,module){
 
                     payMoney=parseFloat(info.shopCart.total-0);
 
-                    $eles.payMoney.html((payMoney-0+serverFee-0).toFixed(2));
+                    $eles.payMoney.html("¥"+(payMoney-0+serverFee-0).toFixed(2));
 
-                    $eles.orderMoney.html((payMoney-0+serverFee-0).toFixed(2));
+                    $eles.orderMoney.html("¥"+(payMoney-0+serverFee-0).toFixed(2));
 
-                    $eles.orderPay.html((payMoney-0+serverFee-0).toFixed(2));
+                    $eles.orderPay.html("¥"+(payMoney-0+serverFee-0).toFixed(2));
 
                 }
 
