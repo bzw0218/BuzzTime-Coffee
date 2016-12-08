@@ -511,7 +511,8 @@ define(function(require,exports,module){
 
                     //滞留超时
                     while (deliveryMinTime<Date.now()){
-                        alert("所选配送时间小于当前时间，请重新选择");
+                        alert("所选配送时间小于当前时间，已为您重新刷新，请确认后重新提交订单");
+                        refreshDeliveryTime();
                         $eles.payBtn.prop("isLoading",false);
                         return null;
                     }
@@ -607,6 +608,10 @@ define(function(require,exports,module){
                 },
             })
 
+        }
+
+        function refreshDeliveryTime(){
+
             var timeList=eles.getDeliveryTime(),
                 daysArr=["周日","周一","周二","周三","周四","周五","周六"],
                 tabsStr="",
@@ -651,6 +656,12 @@ define(function(require,exports,module){
             $eles.timeTabs.html(tabsStr);
             $eles.timeListCon.find(".wrap_time_list").html(timesStr);
 
+            $eles.timeTabs.find("li").eq(0).trigger("click");
+
+            var input0=$eles.timeListCon.find("input").eq(0);
+            input0.prop("checked",true);
+            eles.currTime=JSON.parse(input0.val());
+
         }
 
         function initEvent(){
@@ -669,11 +680,8 @@ define(function(require,exports,module){
                 eles.timeScroller.refresh();
             })
 
-            $eles.timeTabs.find("li").eq(0).trigger("click");
 
-            var input0=$eles.timeListCon.find("input").eq(0);
-            input0.prop("checked",true);
-            eles.currTime=JSON.parse(input0.val());
+            refreshDeliveryTime();
 
             $eles.deliverTime.on("click",function(){
                 eles.timeSelect.show();
