@@ -87,7 +87,7 @@ define(function(require,exports,module){
                         set:function(v){
                             address=v;
                             var html='<h3>'+(address.name||" ")+(address.sex||" ") +(address.telephone||" ")+'</h3>\
-                                        <p><label class="tag">'+(address.label||"")+'</label>'+(address.address||"")+(address.houseNumber||"")+'</p>';
+                                        <p>'+(address.label?('<label class="tag">'+address.label):"")+'</label>'+(address.address||"")+(address.houseNumber||"")+'</p>';
 
                             $eles.addrShow.html(html);
                         }
@@ -430,6 +430,9 @@ define(function(require,exports,module){
                                     tip(res.Message, { classes: "otip", t: 2000 });
                                     return "";
                                 }
+
+                                sessionStorage.setItem("shop_cart","");
+
                                 self.orderId=data.id;
                                 self.pay(data.payInfo);
                             }
@@ -647,6 +650,7 @@ define(function(require,exports,module){
 
             $eles.timeTabs.html(tabsStr);
             $eles.timeListCon.find(".wrap_time_list").html(timesStr);
+
         }
 
         function initEvent(){
@@ -666,6 +670,10 @@ define(function(require,exports,module){
             })
 
             $eles.timeTabs.find("li").eq(0).trigger("click");
+
+            var input0=$eles.timeListCon.find("input").eq(0);
+            input0.prop("checked",true);
+            eles.currTime=JSON.parse(input0.val());
 
             $eles.deliverTime.on("click",function(){
                 eles.timeSelect.show();

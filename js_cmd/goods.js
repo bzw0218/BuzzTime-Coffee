@@ -63,6 +63,16 @@ define(function(require,exports,module){
                         commodity:[]
                     };
 
+                var _shopCart=sessionStorage.getItem("shop_cart");
+
+                if(_shopCart){
+                    shopCart=JSON.parse(_shopCart);
+
+                    setTimeout(function(){
+                        this.shopCartFresh();
+                    }.bind(this),100)
+                }
+
                 //this.classifyScroll=new iScroll($eles.wrapItems[0],{/*bounce:false*/});
 
                 Object.defineProperties(this,{
@@ -372,6 +382,9 @@ define(function(require,exports,module){
 
                     sessionStorage.setItem("res_info","");
                     sessionStorage.setItem("res_info",JSON.stringify(postObj));
+
+                    sessionStorage.setItem("shop_cart","");
+                    sessionStorage.setItem("shop_cart",JSON.stringify(shopCart));
                     //window.location.href=[APP.urls.toOrderPage,"?","info=",JSON.stringify(postObj)].join("");
                     window.location.href=APP.urls.toOrderPage;
 

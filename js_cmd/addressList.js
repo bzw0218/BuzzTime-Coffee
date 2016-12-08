@@ -131,7 +131,12 @@ define(function (require, exports, module) {
                     },
                     resultList:{
                         set:function(v){
-                            resultList=v;console.log(v)
+                            resultList=v;
+
+                            [].forEach.call(resultList,function(item,index){
+                                item.address=item.address+item.name;
+                            })
+
                             var tpl='<li data-index="{index}">\
                                         <div class="result_item border">\
                                             <h3>{name}</h3>\
@@ -178,7 +183,9 @@ define(function (require, exports, module) {
                         html="";
                     html=iTemplate.makeList(tpl,addressList,function(index,v){
                         v.url=[APP.urls.shopListUrl,"?addressId=", v.id].join("");
-                        v.index=index;console.log(v)
+                        v.index=index;
+                        v.label= v.label||"";
+
                         return v;
                     });
 
