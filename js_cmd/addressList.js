@@ -133,9 +133,7 @@ define(function (require, exports, module) {
                         set:function(v){
                             resultList=v;
 
-                            [].forEach.call(resultList,function(item,index){
-                                item.address=item.address+item.name;
-                            })
+                           /* */
 
                             var tpl='<li data-index="{index}">\
                                         <div class="result_item border">\
@@ -162,6 +160,7 @@ define(function (require, exports, module) {
                     currLocation:{
                         get:function(){return currLocation;},
                         set:function(address){
+
                             currLocation=address;
                             $eles.currLocation.html(address.address);
                             /*$eles.address.val(address.address);
@@ -244,6 +243,10 @@ define(function (require, exports, module) {
 
                 this.selectResult=function(index){
                     var address=resultList[index];
+
+                    //在此处将详细地址转换为标题
+                    address._address=address.address;
+                    address.address=address.name;
 
                     $eles.address.val(address.address);
                     $eles.addressShow.html(address.address||"&nbsp;");
